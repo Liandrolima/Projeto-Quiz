@@ -46,6 +46,8 @@ app.listen(PORT, () => {
 
 // Função para enviar resultados para o banco de dados
 const sendResultsToDatabase = (name, score, answers) => {
+    console.log("Valores enviados para o servidor:", { name, score, answers }); // Adicionado para debug
+
     fetch('http://localhost:3000/resultados', {
         method: 'POST',
         headers: {
@@ -66,13 +68,4 @@ const sendResultsToDatabase = (name, score, answers) => {
     });
 };
 
-// Exemplo de como você poderia chamar essa função no final do quiz
-// Remova ou adapte isso para quando realmente tiver os resultados do quiz
-const answers = [
-    { question: "Pergunta 1", userAnswer: "Resposta 1", correctAnswer: "Resposta 1" },
-    { question: "Pergunta 2", userAnswer: "Resposta 2", correctAnswer: "Resposta 3" },
-    // Adicione todas as respostas do quiz
-];
 
-// Enviar resultados como exemplo - remova ou adapte conforme necessário
-sendResultsToDatabase();
