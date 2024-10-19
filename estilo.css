@@ -1,0 +1,91 @@
+@charset "UTF-8";
+
+body {
+    background: rgb(70, 142, 236);
+    font: normal 15pt Arial;
+}
+
+header {
+    color: white;
+    text-align: center;
+
+}
+
+section {
+    background: white;
+    border-radius: 10px;
+    padding: 15px;
+    width: 400px;
+    margin: auto;
+    box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.363);
+}
+
+ .input-container {
+            text-align: center;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        
+        label {
+            font-size: 18px;
+            font-weight: bold;
+            color: #333;
+        }
+        
+        input[type="text"] {
+            width: 80%;
+            padding: 10px;
+            margin-top: 10px;
+            margin-bottom: 20px;
+            border: 2px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        
+        button {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        
+        button:hover {
+            background-color: #45a049;
+        }
+
+        #greeting {
+            margin-top: 20px;
+            font-size: 18px;
+            color: #4CAF50;
+            font-weight: bold;
+        }
+
+#statusAnswer {
+    /* Texto e Cor */
+    color: blue;              /* Cor do texto */
+    font-size: 20px;          /* Tamanho da fonte */
+    font-family: Arial, sans-serif; /* Família da fonte */
+    font-weight: bold;        /* Peso da fonte (negrito) */
+    font-style: italic;       /* Estilo da fonte (itálico) */
+    text-align: center;       /* Alinhamento do texto (centralizado) */
+    text-transform: uppercase;/* Transformação do texto (tudo maiúsculo) */
+    text-decoration: underline; /* Sublinhado no texto */
+    letter-spacing: 2px;      /* Espaçamento entre letras */
+    line-height: 1.5;         /* Altura da linha (espaçamento entre linhas) */
+    word-spacing: 4px;        /* Espaçamento entre palavras */
+    
+    
+}
+
+
+footer {
+    color: white;
+    text-align: center;
+    font-style: italic;
+    
+}

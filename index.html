@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz</title>
+    <link rel="stylesheet" href="estilo.css">
+</head>
+<body>
+    <header>
+        <h1>Quiz de Administração</h1>
+    </header>
+    <section>
+
+        <div class="input-container">
+            <label for="nameInput">Digite seu nome:</label><br>
+            <input type="text" id="nameInput" placeholder="Seu nome aqui"><br>
+            <button onclick="submitName()">Confirmar</button>
+        
+            <p id="greeting"></p>
+        </div>
+     
+        <div class="questions-container" id="questions">
+            <div class="question" id="question"></div>
+            <button class="alternative" data-value="0"></button>
+            <button class="alternative" data-value="1"></button>
+            <button class="alternative" data-value="2"></button>
+            <button class="alternative" data-value="3"></button>
+            <button id="roleta">Próxima Pergunta</button>
+            <p id="statusAnswer"></p>
+        </div>       
+        
+        </section>
+        
+        <footer>
+            <p>&copy: Criatividade e inovação</p>
+        </footer>
+        <script src="script.js"></script>
+</body>
+</html>
