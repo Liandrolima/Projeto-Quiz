@@ -164,7 +164,7 @@ selectButton();
 
 // Função para enviar os resultados para o banco de dados
 const sendResultsToDatabase = (name, score, resultMessage, answers) => {
-    console.log("Enviando resultados ao servidor...");  // Log para verificar chamada da função
+    console.log('Valores enviados para o servidor:', { name, score, answers });  // Log para verificar chamada da função
 
     // Verificar se 'answers' é um array antes de tentar acessar '.length'
     if (!Array.isArray(answers)) {
