@@ -34,15 +34,16 @@ app.post('/resultados', (req, res) => {
     }
 
     const sql = 'INSERT INTO resultados (nome, acertos, total) VALUES ($1, $2, $3)';
-    
+
     pool.query(sql, [nome, acertos, total], (err) => {
         if (err) {
             console.error('Erro ao armazenar resultados:', err); // Log do erro
-            return res.status(500).json({ error: 'Erro ao armazenar resultados' });
+            return res.status(500).json({ error: 'Erro ao armazenar resultados', details: err });
         }
         res.status(201).json({ message: 'Resultados armazenados com sucesso!' });
     });
 });
+
 
 const PORT = 3000;
 app.listen(PORT, () => {
