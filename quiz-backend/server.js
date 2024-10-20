@@ -5,8 +5,11 @@ const cors = require('cors');
 const { Pool } = require('pg'); 
 
 const app = express();
-app.use(cors());
+app.use(cors()); 
 app.use(bodyParser.json());
+
+// Log para verificar se as variáveis de ambiente estão corretas
+console.log('DB_HOST:', process.env.DB_HOST);
 
 const pool = new Pool({
     host: process.env.DB_HOST,
