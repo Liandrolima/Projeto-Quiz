@@ -172,7 +172,7 @@ const sendResultsToDatabase = (name, score, resultMessage, answers) => {
         return;
     }
 
-    fetch('http://localhost:3000/resultados', {
+    fetch('https://quiz-backend-zdxz.onrender.com/resultados', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'

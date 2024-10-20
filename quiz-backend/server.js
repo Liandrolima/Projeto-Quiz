@@ -52,7 +52,7 @@ app.listen(PORT, () => {
 });
 
 const sendResultsToDatabase = (name, score, answers) => {
-    fetch('http://localhost:3000/resultados', { // Atualize para o endereço correto se necessário
+    fetch('https://quiz-backend-zdxz.onrender.com/resultados', { // Atualize para o endereço correto se necessário
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
