@@ -14,7 +14,7 @@ console.log('DB_HOST:', process.env.DB_HOST);
 
 const pool = new Pool({
     connectionString: process.env.DATABASE_URL, // Usando a URL de conexão
-    connectionTimeoutMillis: 5000
+    connectionTimeoutMillis: 10000
 });
 
 pool.connect((err) => {
