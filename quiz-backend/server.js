@@ -13,11 +13,7 @@ app.use(bodyParser.json());
 console.log('DB_HOST:', process.env.DB_HOST);
 
 const pool = new Pool({
-    host: process.env.DB_HOST, // Certifique-se de que este valor inclua .postgres.render.com
-    user: process.env.DB_USER,
-    password: process.env.DB_PASSWORD,
-    database: process.env.DB_NAME,
-    port: process.env.DB_PORT || 5432,
+    connectionString: process.env.DATABASE_URL, // Usando a URL de conexão
     connectionTimeoutMillis: 5000
 });
 
@@ -54,7 +50,7 @@ app.listen(PORT, () => {
 });
 
 const sendResultsToDatabase = (name, score, answers) => {
-    fetch('https://quiz-backend-zdxz.onrender.com/resultados', { // Atualize para o endereço correto se necessário
+    fetch('https://quiz-backend-zdxz.onrender.com/resultados', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
