@@ -1,33 +1,21 @@
+require('dotenv').config();
 const express = require('express'); 
 const bodyParser = require('body-parser');
 const cors = require('cors');
-const { Pool } = require('pg'); // Adicionando o cliente PostgreSQL
+const { Pool } = require('pg'); 
 
-// Cria uma instância do express
 const app = express();
 app.use(cors());
 app.use(bodyParser.json());
-const { Pool } = require('pg');
 
-// Configuração do banco de dados PostgreSQL
 const pool = new Pool({
     host: process.env.DB_HOST,
     user: process.env.DB_USER,
     password: process.env.DB_PASSWORD,
     database: process.env.DB_NAME,
-    port: process.env.DB_PORT || 5432, // A porta padrão do PostgreSQL
+    port: process.env.DB_PORT || 5432,
 });
 
-
-db.connect(err => {
-    if (err) {
-        console.error('Erro ao conectar ao banco de dados:', err);
-    } else {
-        console.log('Conectado ao banco de dados PostgreSQL');
-    }
-});
-
-// Testar conexão com o banco de dados
 pool.connect((err) => {
     if (err) {
         console.error('Erro ao conectar ao banco de dados:', err);
@@ -36,28 +24,32 @@ pool.connect((err) => {
     console.log('Conectado ao banco de dados PostgreSQL');
 });
 
-// Rota para armazenar os resultados do quiz
 app.post('/resultados', (req, res) => {
     const { nome, acertos, total } = req.body;
+
+    // Validação simples
+    if (!nome || typeof acertos !== 'number' || typeof total !== 'number') {
+        return res.status(400).json({ error: 'Dados inválidos' });
+    }
+
     const sql = 'INSERT INTO resultados (nome, acertos, total) VALUES ($1, $2, $3)';
     
-    pool.query(sql, [nome, acertos, total], (err, result) => {
+    pool.query(sql, [nome, acertos, total], (err) => {
         if (err) {
+            console.error('Erro ao armazenar resultados:', err); // Log do erro
             return res.status(500).json({ error: 'Erro ao armazenar resultados' });
         }
         res.status(201).json({ message: 'Resultados armazenados com sucesso!' });
     });
 });
 
-// Inicia o servidor
 const PORT = 3000;
 app.listen(PORT, () => {
     console.log(`Servidor rodando na porta ${PORT}`);
 });
 
-// Função para enviar resultados para o banco de dados
 const sendResultsToDatabase = (name, score, answers) => {
-    fetch('http://ENDERECO_DO_SEU_SERVIDOR:3000/resultados', {
+    fetch('http://localhost:3000/resultados', { // Atualize para o endereço correto se necessário
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -76,12 +68,3 @@ const sendResultsToDatabase = (name, score, answers) => {
         console.error('Erro ao enviar dados:', error);
     });
 };
-
-// Exemplo de como você poderia chamar essa função no final do quiz
-const answers = [
-    { question: "Pergunta 1", userAnswer: "Resposta 1", correctAnswer: "Resposta 1" },
-    { question: "Pergunta 2", userAnswer: "Resposta 2", correctAnswer: "Resposta 3" }
-];
-
-// Enviar resultados como exemplo - remova ou adapte conforme necessário
-sendResultsToDatabase('Exemplo de Nome', 8, answers);
