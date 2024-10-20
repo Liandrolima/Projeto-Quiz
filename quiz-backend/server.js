@@ -17,13 +17,14 @@ const pool = new Pool({
     connectionTimeoutMillis: 10000
 });
 
-pool.connect((err) => {
-    if (err) {
+// Teste de conexão
+pool.connect()
+    .then(() => {
+        console.log('Conexão ao banco de dados bem-sucedida!');
+    })
+    .catch(err => {
         console.error('Erro ao conectar ao banco de dados:', err);
-        return;
-    }
-    console.log('Conectado ao banco de dados PostgreSQL');
-});
+    });
 
 app.post('/resultados', (req, res) => {
     const { nome, acertos, total } = req.body;
@@ -43,7 +44,6 @@ app.post('/resultados', (req, res) => {
         res.status(201).json({ message: 'Resultados armazenados com sucesso!' });
     });
 });
-
 
 const PORT = 3000;
 app.listen(PORT, () => {
