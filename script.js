@@ -26,8 +26,8 @@ const options = [
 
 const correctAnswers = [3, 1, 2, 1, 0, 1, 1, 3, 2, 2];
 
-let score = 0;
-let questionsDone = [];
+let score = 0;  
+let questionsDone = [];  
 let correctQuestions = [];
 let wrongQuestions = [];
 let nowQuestion;
@@ -100,14 +100,14 @@ function checkAnswer(answer) {
     
     if (answer === correctAnswers[nowQuestion]) {
         statusAnswer.innerHTML = "Acertou!!!";
-        score++;
+        score++;  
         correctQuestions.push(questions[nowQuestion]);
     } else {
         statusAnswer.innerHTML = `Errou! Resposta correta: ${options[nowQuestion][correctAnswers[nowQuestion]]}`;
         wrongQuestions.push(questions[nowQuestion]);
     }
     
-    roletaButton.style.display = "block";
+    roletaButton.style.display = "block";  
 }
 
 function showFinalScore() {
@@ -135,7 +135,7 @@ function showFinalScore() {
         resultMessage.innerHTML = "Ótimo! Sua nota foi " + finalScore;
     } else if (finalScore === 7 || finalScore === 8) {
         resultMessage.innerHTML = "Bom! Sua nota foi " + finalScore;
-    } else if (finalScore === 5 || 6) {
+    } else if (finalScore === 5 || finalScore === 6) {
         resultMessage.innerHTML = "Regular! Sua nota foi " + finalScore;
     } else if (finalScore <= 4) {
         resultMessage.innerHTML = "Precisa melhorar.";
@@ -164,15 +164,9 @@ selectButton();
 
 // Função para enviar os resultados para o banco de dados
 const sendResultsToDatabase = (name, score, resultMessage, answers) => {
-    console.log('Valores enviados para o servidor:', { name, score, answers });  // Log para verificar chamada da função
-
-    // Verificar se 'answers' é um array antes de tentar acessar '.length'
-    if (!Array.isArray(answers)) {
-        console.error('Erro: "answers" não é um array ou está indefinido');
-        return;
-    }
-
-    fetch('https://quiz-backend-zdxz.onrender.com/resultados', {
+    console.log("Enviando resultados ao servidor...");  // Log para verificar chamada da função
+    
+    fetch('http://localhost:3000/resultados', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
