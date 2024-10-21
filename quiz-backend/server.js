@@ -18,6 +18,7 @@ pool.connect()
 
 app.post('/resultados', (req, res) => {
     const { nome, acertos, total } = req.body;
+    console.log('Dados recebidos:', nome, acertos, total);
 
     if (!nome || typeof acertos !== 'number' || typeof total !== 'number') {
         return res.status(400).json({ error: 'Dados inválidos' });
