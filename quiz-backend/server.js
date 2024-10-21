@@ -6,9 +6,10 @@ const { Pool } = require('pg');
 
 const app = express();
 app.use(cors({
-    origin: 'https://liandrolima.github.io' // URL do seu frontend no GitHub Pages
+    origin: 'https://liandrolima.github.io', // URL do seu frontend no GitHub Pages
+    methods: ['GET', 'POST'],
+    allowedHeaders: ['Content-Type', 'Authorization']
 }));
-
 
 app.use(bodyParser.json());
 
