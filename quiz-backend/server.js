@@ -6,8 +6,9 @@ const { Pool } = require('pg');
 
 const app = express();
 app.use(cors({
-    origin: 'https://liandrolima.github.io/Projeto-Quiz/',
+    origin: '*', 
 }));
+
 app.use(bodyParser.json());
 
 const pool = new Pool({
