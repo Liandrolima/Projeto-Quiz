@@ -12,6 +12,8 @@ const pool = new Pool({
     connectionString: process.env.DATABASE_URL,
 });
 
+console.log('Conectando ao banco de dados:', process.env.DATABASE_URL);
+
 pool.connect()
     .then(() => console.log('Conexão ao banco de dados bem-sucedida!'))
     .catch(err => console.error('Erro ao conectar ao banco de dados:', err));
