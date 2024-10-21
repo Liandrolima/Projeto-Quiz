@@ -163,28 +163,30 @@ roletaButton.addEventListener('click', () => {
 selectButton();
 
 // Função para enviar os resultados para o banco de dados
-const sendResultsToDatabase = (name, score, resultMessage, answers) => {
-    console.log("Enviando resultados ao servidor...");  // Log para verificar chamada da função
+const sendResultsToDatabase = (name, score, answers) => {
+    console.log("Enviando resultados ao servidor...");
     
-    fetch('http://localhost:3000/resultados', {
+    fetch('https://jfazxnoryjdnopzonhzv.supabase.co/rest/v1/resultados', {
         method: 'POST',
         headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'apikey': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImpmYXp4bm9yeWpkbm9wem9uaHp2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Mjk0NzE0MjEsImV4cCI6MjA0NTA0NzQyMX0.bEqALYhptVHm2sP9CwQS9EecqqMLUc47wHOxHJzDZ4M',
+            'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImpmYXp4bm9yeWpkbm9wem9uaHp2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Mjk0NzE0MjEsImV4cCI6MjA0NTA0NzQyMX0.bEqALYhptVHm2sP9CwQS9EecqqMLUc47wHOxHJzDZ4M'
         },
         body: JSON.stringify({
             nome: name,
             acertos: score,
-            total: answers.length // Total de respostas
+            total: answers.length
         })
     })
     .then(response => {
-        console.log("Resposta recebida:", response);  // Log da resposta do servidor
+        if (!response.ok) throw new Error("Erro na resposta da rede");
         return response.json();
     })
     .then(data => {
-        console.log("Dados retornados pelo servidor:", data);  // Log dos dados retornados
+        console.log("Dados retornados pelo servidor:", data);
     })
     .catch(error => {
-        console.error('Erro ao enviar dados:', error);  // Log de erro
+        console.error('Erro ao enviar dados:', error);
     });
 };
