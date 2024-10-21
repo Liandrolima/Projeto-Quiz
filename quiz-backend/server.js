@@ -4,12 +4,10 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const { Pool } = require('pg');
 
+const app = express();
 app.use(cors({
-    origin: 'https://liandrolima.github.io', // URL do seu frontend no GitHub Pages
-    methods: ['GET', 'POST'],  // Se você só está permitindo GET e POST, pode definir isso
-    allowedHeaders: ['Content-Type', 'Authorization'] // Certifique-se de que os headers corretos estão permitidos
+    origin: 'https://liandrolima.github.io' // URL do seu frontend no GitHub Pages
 }));
-
 
 
 app.use(bodyParser.json());
