@@ -116,7 +116,7 @@ function showFinalScore() {
     const name = document.querySelector('#nameInput').value;
 
     // Enviar os dados para o servidor aqui
-    sendResultsToDatabase(name, finalScore, "Sua mensagem", questions);
+    sendResultsToDatabase(name, finalScore, questions);
 
     document.body.innerHTML = "";  
 
@@ -166,7 +166,7 @@ selectButton();
 const sendResultsToDatabase = (name, score, answers) => {
     console.log("Enviando resultados ao servidor...");
     
-    fetch('https://jfazxnoryjdnopzonhzv.supabase.co/rest/v1/resultados', {
+    fetch('https://quiz-backend-1-05r8.onrender.com/resultados', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
