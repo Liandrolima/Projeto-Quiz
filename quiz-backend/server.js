@@ -1,4 +1,4 @@
-require('dotenv').config();  // Carrega as variáveis de ambiente
+require('dotenv').config();
 const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
@@ -6,33 +6,39 @@ const { Pool } = require('pg');
 
 const app = express();
 
+// Middleware para lidar com CORS, incluindo o cabeçalho 'apikey'
 app.use(cors({
-    origin: 'https://liandrolima.github.io',  // URL do frontend
-    methods: ['GET', 'POST'],  // Métodos permitidos
-    allowedHeaders: ['Content-Type', 'Authorization', 'apikey'],  // Cabeçalhos permitidos
+    origin: 'https://liandrolima.github.io',  // Permitir requisições do seu frontend no GitHub Pages
+    methods: ['GET', 'POST', 'OPTIONS'],  // Incluir o método 'OPTIONS' para lidar com preflight
+    allowedHeaders: ['Content-Type', 'Authorization', 'apikey'],  // Permitir os cabeçalhos, incluindo 'apikey'
 }));
 
-// Middleware para lidar com preflight CORS
+// Middleware adicional para lidar com requisições preflight CORS
 app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Origin', 'https://liandrolima.github.io');
-    res.setHeader('Access-Control-Allow-Methods', 'GET, POST');
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
     res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization, apikey');
+    
+    if (req.method === 'OPTIONS') {
+        return res.sendStatus(200); // Responder OK (200) para requisições preflight
+    }
+
     next();
 });
 
 app.use(bodyParser.json());
 
-// Configuração do banco de dados
+// Configuração do pool de conexão ao PostgreSQL
 const pool = new Pool({
-    connectionString: process.env.DATABASE_URL,  // Variável de ambiente para o banco de dados
+    connectionString: process.env.DATABASE_URL,
 });
 
-// Verificação da conexão ao banco de dados
+// Verifica a conexão com o banco de dados
 pool.connect()
     .then(() => console.log('Conexão ao banco de dados bem-sucedida!'))
     .catch(err => console.error('Erro ao conectar ao banco de dados:', err));
 
-// Rota para armazenar os resultados
+// Rota para receber e armazenar os resultados
 app.post('/resultados', (req, res) => {
     const { nome, acertos, total } = req.body;
     console.log('Dados recebidos:', nome, acertos, total);
