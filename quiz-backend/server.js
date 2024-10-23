@@ -7,11 +7,14 @@ const { Pool } = require('pg');
 const app = express();
 
 // Configuração CORS
-app.use(cors({
-    origin: 'https://liandrolima.github.io', // URL do seu frontend no GitHub Pages
-    methods: ['GET', 'POST'],
-    allowedHeaders: ['Content-Type', 'Authorization', 'apikey'] // Permite o cabeçalho 'apikey'
-}));
+app.use((req, res, next) => {
+    res.setHeader('Access-Control-Allow-Origin', 'https://liandrolima.github.io');  // Permite requisições apenas do seu frontend no GitHub Pages
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');  // Permite os métodos HTTP
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization, apikey');  // Permite os cabeçalhos específicos
+    res.setHeader('Access-Control-Allow-Credentials', 'true');  // Se necessário, para cookies e autenticação
+    next();
+});
+
 
 app.use(bodyParser.json());
 
