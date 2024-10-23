@@ -162,31 +162,29 @@ roletaButton.addEventListener('click', () => {
 
 selectButton();
 
-// Função para enviar os resultados para o banco de dados
-const sendResultsToDatabase = (name, score, answers) => {
-    console.log("Enviando resultados ao servidor...");
+function sendResultsToDatabase(nome, acertos, total) {
+    const url = 'https://quiz-backend-1-05r8.onrender.com/resultados';
     
-    fetch('https://quiz-backend-1-05r8.onrender.com/resultados', {
+    const data = {
+        nome: nome,
+        acertos: acertos,
+        total: total
+    };
+
+    fetch(url, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
-            'apikey': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImpmYXp4bm9yeWpkbm9wem9uaHp2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Mjk0NzE0MjEsImV4cCI6MjA0NTA0NzQyMX0.bEqALYhptVHm2sP9CwQS9EecqqMLUc47wHOxHJzDZ4M',
-            'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImpmYXp4bm9yeWpkbm9wem9uaHp2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Mjk0NzE0MjEsImV4cCI6MjA0NTA0NzQyMX0.bEqALYhptVHm2sP9CwQS9EecqqMLUc47wHOxHJzDZ4M'
+            'apikey': 'SUA_API_KEY'
         },
-        body: JSON.stringify({
-            nome: name,
-            acertos: score,
-            total: answers.length
-        })
+        body: JSON.stringify(data)
     })
-    .then(response => {
-        if (!response.ok) throw new Error("Erro na resposta da rede");
-        return response.json();
-    })
-    .then(data => {
-        console.log("Dados retornados pelo servidor:", data);
+    .then(response => response.json())
+    .then(result => {
+        console.log('Dados enviados com sucesso:', result);
     })
     .catch(error => {
         console.error('Erro ao enviar dados:', error);
     });
-};
+}
+

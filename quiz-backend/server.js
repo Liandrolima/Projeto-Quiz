@@ -12,7 +12,6 @@ app.use(cors({
     allowedHeaders: ['Content-Type', 'Authorization', 'apikey'],  // Permitir os cabeçalhos, incluindo 'apikey'
 }));
 
-
 app.use(bodyParser.json());
 
 // Configuração do pool de conexão ao PostgreSQL
@@ -44,7 +43,6 @@ app.post('/resultados', (req, res) => {
             res.status(500).json({ error: 'Erro ao armazenar resultados', details: err });
         });
 });
-
 
 // Define a porta do servidor
 const PORT = process.env.PORT || 3000;
