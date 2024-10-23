@@ -175,7 +175,7 @@ function sendResultsToDatabase(nome, acertos, total) {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
-            'apikey': 'SUA_API_KEY'
+            'apikey': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYW5vbiIsImlhdCI6MTY5NzU1NTczOCwiZXhwIjoxOTExMTM1NzM4fQ.B3_VPYilcdQQwqUdIJsj_3j6FEmEHU_QDqrOrVqu7ko'
         },
         body: JSON.stringify(data)
     })
@@ -187,4 +187,3 @@ function sendResultsToDatabase(nome, acertos, total) {
         console.error('Erro ao enviar dados:', error);
     });
 }
-
