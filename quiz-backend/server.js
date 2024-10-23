@@ -6,14 +6,11 @@ const { Pool } = require('pg');
 
 const app = express();
 
-// Configuração CORS
-app.use((req, res, next) => {
-    res.setHeader('Access-Control-Allow-Origin', 'https://liandrolima.github.io');  // Permite requisições apenas do seu frontend no GitHub Pages
-    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');  // Permite os métodos HTTP
-    res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization, apikey');  // Permite os cabeçalhos específicos
-    res.setHeader('Access-Control-Allow-Credentials', 'true');  // Se necessário, para cookies e autenticação
-    next();
-});
+app.use(cors({
+    origin: 'https://liandrolima.github.io',  // Permitir requisições do seu frontend no GitHub Pages
+    methods: ['GET', 'POST'],  // Permitir os métodos usados
+    allowedHeaders: ['Content-Type', 'Authorization', 'apikey'],  // Permitir os cabeçalhos, incluindo 'apikey'
+}));
 
 
 app.use(bodyParser.json());
@@ -35,12 +32,10 @@ app.post('/resultados', (req, res) => {
     const { nome, acertos, total } = req.body;
     console.log('Dados recebidos:', nome, acertos, total);
 
-    // Validação dos dados recebidos
     if (!nome || typeof acertos !== 'number' || typeof total !== 'number') {
         return res.status(400).json({ error: 'Dados inválidos' });
     }
 
-    // Query para inserir os resultados no banco de dados
     const sql = 'INSERT INTO resultados (nome, acertos, total) VALUES ($1, $2, $3)';
     pool.query(sql, [nome, acertos, total])
         .then(() => res.status(201).json({ message: 'Resultados armazenados com sucesso!' }))
@@ -49,6 +44,7 @@ app.post('/resultados', (req, res) => {
             res.status(500).json({ error: 'Erro ao armazenar resultados', details: err });
         });
 });
+
 
 // Define a porta do servidor
 const PORT = process.env.PORT || 3000;
