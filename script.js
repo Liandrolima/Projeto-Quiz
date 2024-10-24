@@ -175,7 +175,7 @@ function sendResultsToDatabase(nome, acertos, total) {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
-            'apikey': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImpmYXp4bm9yeWpkbm9wem9uaHp2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Mjk0NzE0MjEsImV4cCI6MjA0NTA0NzQyMX0.bEqALYhptVHm2sP9CwQS9EecqqMLUc47wHOxHJzDZ4M'  // Chave de API do Supabase
+            'apikey': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9'  // Chave de API correta
         },
         body: JSON.stringify(data)
     })
@@ -187,4 +187,3 @@ function sendResultsToDatabase(nome, acertos, total) {
         console.error('Erro ao enviar dados:', error);
     });
 }
-
