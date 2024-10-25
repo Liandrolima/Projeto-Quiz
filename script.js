@@ -163,7 +163,7 @@ roletaButton.addEventListener('click', () => {
 selectButton();
 
 function sendResultsToDatabase(nome, acertos, total) {
-    const url = 'https://jfazxnoryjdnopzonhzv.supabase.co/rest/v1/resultados';
+    const url = 'https://quiz-backend-1-05r8.onrender.com/resultados';
     
     const data = {
         nome: nome,
