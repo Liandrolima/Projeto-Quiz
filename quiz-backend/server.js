@@ -10,9 +10,18 @@ app.use(cors({
     credentials: true
 }));
 
-// Outras rotas e middlewares
+// Middleware para configurar cabeçalhos CORS manualmente
+app.use((req, res, next) => {
+  res.setHeader('Access-Control-Allow-Origin', '*'); // Permite todas as origens
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE'); // Métodos permitidos
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, apikey'); // Cabeçalhos permitidos
+  next();
+});
+
+// Middleware para parsear JSON
 app.use(express.json());
 
+// Rota para receber resultados
 app.post('/resultados', (req, res) => {
     const { nome, acertos, total } = req.body;
     // Lógica de armazenamento dos dados
