@@ -4,13 +4,13 @@ const app = express();
 
 // Configurar CORS para permitir o cabeçalho 'apikey'
 app.use(cors({
-    origin: 'https://liandrolima.github.io', // O domínio do frontend
+    origin: 'https://liandrolima.github.io', // Domínio do frontend
     methods: ['GET', 'POST', 'OPTIONS'],
-    allowedHeaders: ['Content-Type', 'Authorization', 'apikey'], // Inclua o 'apikey' aqui
+    allowedHeaders: ['Content-Type', 'Authorization', 'apikey'], // Inclui 'apikey'
     credentials: true
 }));
 
-// Outras rotas e middlewares
+// Configurações de outras rotas e middlewares
 app.use(express.json());
 
 app.post('/resultados', (req, res) => {
