@@ -8,7 +8,7 @@ app.use((req, res, next) => {
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization, apikey'); // Cabeçalhos permitidos
   res.setHeader('Access-Control-Allow-Credentials', 'true'); // Permite envio de credenciais
   if (req.method === 'OPTIONS') {
-    return res.sendStatus(200); // Responde às requisições preflight
+    return res.sendStatus(204); // Responde às requisições preflight
   }
   next();
 });
