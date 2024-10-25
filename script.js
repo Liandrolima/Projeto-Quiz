@@ -163,7 +163,7 @@ roletaButton.addEventListener('click', () => {
 selectButton();
 
 function sendResultsToDatabase(nome, acertos, total) {
-    const url = 'https://quiz-backend-1-05r8.onrender.com/resultados';
+    const url = 'https://jfazxnoryjdnopzonhzv.supabase.co/rest/v1/resultados';
     
     const data = {
         nome: nome,
@@ -175,7 +175,8 @@ function sendResultsToDatabase(nome, acertos, total) {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
-            'apikey': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9'  // Chave de API correta
+            'apikey': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImpmYXp4bm9yeWpkbm9wem9uaHp2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Mjk0NzE0MjEsImV4cCI6MjA0NTA0NzQyMX0.bEqALYhptVHm2sP9CwQS9EecqqMLUc47wHOxHJzDZ4M',
+            'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImpmYXp4bm9yeWpkbm9wem9uaHp2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Mj'
         },
         body: JSON.stringify(data)
     })
