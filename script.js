@@ -163,7 +163,7 @@ roletaButton.addEventListener('click', () => {
 selectButton();
 
 function sendResultsToDatabase(nome, acertos, total) {
-    const url = 'https://github.com/Liandrolima/quiz-backend/tree/master';
+    const url = 'https://quiz-backend-1-05r8.onrender.com/resultados';
     
     const data = {
         nome: nome,
