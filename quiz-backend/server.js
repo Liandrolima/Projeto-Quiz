@@ -4,6 +4,7 @@ const app = express();
 // Middleware para configurar cabeçalhos CORS manualmente
 app.use((req, res, next) => {
   res.setHeader('Access-Control-Allow-Origin', 'https://liandrolima.github.io'); // Permite a origem específica do frontend
+  res.setHeader('Access-Control-Allow-Origin', 'https://quiz-backend-1-05r8.onrender.com/resultados');
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS'); // Métodos permitidos
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization, apikey'); // Cabeçalhos permitidos
   res.setHeader('Access-Control-Allow-Credentials', 'true'); // Permite envio de credenciais
