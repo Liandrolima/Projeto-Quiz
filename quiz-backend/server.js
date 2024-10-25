@@ -1,20 +1,15 @@
 const express = require('express');
-const cors = require('cors');
 const app = express();
-
-// Configurar CORS
-app.use(cors({
-    origin: 'https://liandrolima.github.io', // O domínio do frontend
-    methods: ['GET', 'POST', 'OPTIONS'],
-    allowedHeaders: ['Content-Type', 'Authorization', 'apikey'], // Permitir o cabeçalho 'apikey'
-    credentials: true
-}));
 
 // Middleware para configurar cabeçalhos CORS manualmente
 app.use((req, res, next) => {
-  res.setHeader('Access-Control-Allow-Origin', '*'); // Permite todas as origens
-  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE'); // Métodos permitidos
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, apikey'); // Cabeçalhos permitidos
+  res.setHeader('Access-Control-Allow-Origin', 'https://liandrolima.github.io'); // Permite a origem específica do frontend
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS'); // Métodos permitidos
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization, apikey'); // Cabeçalhos permitidos
+  res.setHeader('Access-Control-Allow-Credentials', 'true'); // Permite envio de credenciais
+  if (req.method === 'OPTIONS') {
+    return res.sendStatus(200); // Responde às requisições preflight
+  }
   next();
 });
 
