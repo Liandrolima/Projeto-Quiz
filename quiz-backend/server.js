@@ -13,12 +13,7 @@
     // Outras rotas e middlewares
     app.use(express.json());
 
-    app.options('/resultados', (req, res) => {
-        res.header('Access-Control-Allow-Origin', 'https://liandrolima.github.io');
-        res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
-        res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization, apikey');
-        res.sendStatus(204);        
-    });
+    
 
     app.post('/resultados', (req, res) => {
         const { nome, acertos, total } = req.body;
