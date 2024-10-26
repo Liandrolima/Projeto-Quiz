@@ -216,3 +216,11 @@ function calcularAcertos() {
     return acertos;
 }
 
+// Supondo que esses dados foram obtidos ao finalizar o quiz
+const nomeUsuario = "Nome do Usuário";
+const acertos = 5;
+const totalPerguntas = 10;
+
+sendResultsToDatabase(nomeUsuario, acertos, totalPerguntas);
+
+
