@@ -165,6 +165,12 @@ selectButton();
 function sendResultsToDatabase(nome, acertos, total) {
     const url = 'https://quiz-backend-1-05r8.onrender.com/resultados';
     
+    // Verifica se os dados estão no formato esperado
+    if (typeof nome !== 'string' || typeof acertos !== 'number' || !Number.isInteger(total)) {
+        console.error('Dados inválidos para envio:', { nome, acertos, total });
+        return;
+    }
+
     const data = {
         nome: nome,
         acertos: acertos,
@@ -178,7 +184,12 @@ function sendResultsToDatabase(nome, acertos, total) {
         },
         body: JSON.stringify(data),
     })
-    .then(response => response.json())
+    .then(response => {
+        if (!response.ok) {
+            throw new Error(`Erro na resposta do servidor: ${response.status}`);
+        }
+        return response.json();
+    })
     .then(result => {
         console.log('Dados enviados com sucesso:', result);
     })
@@ -186,6 +197,7 @@ function sendResultsToDatabase(nome, acertos, total) {
         console.error('Erro ao enviar dados:', error);
     });
 }
+
 
 // Função para finalizar o quiz e enviar os resultados
 function finalizarQuiz() {
