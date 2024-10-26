@@ -11,17 +11,14 @@
         <h1>Quiz de Administração</h1>
     </header>
     <section>
-
         <div class="input-container">
             <label for="nameInput">Digite seu nome:</label><br>
             <input type="text" id="nameInput" placeholder="Seu nome aqui"><br>
-            <button onclick="finalizarQuiz()">Finalizar Quiz</button>
             <button onclick="submitName()">Confirmar</button>
-        
             <p id="greeting"></p>
         </div>
-     
-        <div class="questions-container" id="questions">
+        
+        <div class="questions-container" id="questions" style="display: none;">
             <div class="question" id="question"></div>
             <button class="alternative" data-value="0"></button>
             <button class="alternative" data-value="1"></button>
@@ -30,12 +27,11 @@
             <button id="roleta">Próxima Pergunta</button>
             <p id="statusAnswer"></p>
         </div>       
-        
-        </section>
-        
-        <footer>
-            <p>&copy: Criatividade e inovação</p>
-        </footer>
-        <script src="script.js"></script>
+    </section>
+    
+    <footer>
+        <p>&copy; Criatividade e inovação</p>
+    </footer>
+    <script src="script.js"></script>
 </body>
 </html>

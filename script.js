@@ -162,47 +162,6 @@ roletaButton.addEventListener('click', () => {
 
 selectButton();
 
-function sendResultsToDatabase(nome, acertos, total) {
-    const url = 'https://quiz-backend-1-05r8.onrender.com/resultados';
-    
-    const data = {
-        nome: nome,
-        acertos: acertos,
-        total: total
-    };
-
-    console.log("Enviando dados:", data); // Para depuração
-
-    fetch(url, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(data),
-    })
-    .then(response => {
-        if (!response.ok) { // Verifica se a resposta não é ok
-            return response.json().then(err => { throw new Error(err.message) });
-        }
-        return response.json();
-    })
-    .then(result => {
-        console.log('Dados enviados com sucesso:', result);
-    })
-    .catch(error => {
-        console.error('Erro ao enviar dados:', error);
-    });
-}
-
-// Chamada de exemplo
-const nome = "Nome do Usuário"; // Substitua pelo valor real
-const acertos = 5; // Substitua pelo valor real
-const total = [1, 2, 3, 4, 5]; // Substitua pelo valor real
-
-sendResultsToDatabase(nome, acertos, total);
-
-
-
 function submitName() {
     const nomeInput = document.getElementById("nameInput");
     const nome = nomeInput.value.trim();
@@ -266,3 +225,42 @@ function finalizarQuiz() {
         console.error("Elemento com ID 'nameInput' não encontrado.");
     }
 }
+
+// Função para enviar os resultados ao banco de dados
+function sendResultsToDatabase(nome, acertos, total) {
+    const url = 'https://quiz-backend-1-05r8.onrender.com/resultados';
+    
+    const data = {
+        nome: nome,
+        acertos: acertos,
+        total: total
+    };
+
+    console.log("Enviando dados:", data);
+
+    fetch(url, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+    })
+    .then(response => {
+        if (!response.ok) { 
+            return response.json().then(err => { throw new Error(err.message) });
+        }
+        return response.json();
+    })
+    .then(result => {
+        console.log('Dados enviados com sucesso:', result);
+    })
+    .catch(error => {
+        console.error('Erro ao enviar dados:', error);
+    });
+}
+
+const nome = "Nome do Usuário"; // Substitua pelo valor real
+const acertos = 5; // Substitua pelo valor real
+const total = [1, 2, 3, 4, 5]; // Substitua pelo valor real
+
+sendResultsToDatabase(nome, acertos, total);
