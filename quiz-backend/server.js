@@ -3,8 +3,14 @@ const cors = require('cors');
 const { Pool } = require('pg');
 const app = express();
 
-// Configurar CORS sem restrições temporariamente
-app.use(cors());  // Permite todas as origens, cabeçalhos e métodos
+// Configuração de CORS totalmente permissiva
+app.use(cors({
+    origin: '*',                // Permite todas as origens
+    methods: ['GET', 'POST', 'OPTIONS'], // Permite os métodos principais
+    allowedHeaders: '*',        // Permite todos os cabeçalhos
+}));
+
+app.options('*', cors());       // Tratamento para todas as requisições OPTIONS
 
 app.use(express.json());
 
