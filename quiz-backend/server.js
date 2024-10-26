@@ -10,10 +10,14 @@ app.use(cors({
     credentials: true
 }));
 
-// Monitorar requisições preflight (OPTIONS) para o endpoint /resultados
+// Monitorar e responder explicitamente à requisição preflight (OPTIONS) para o endpoint /resultados
 app.options('/resultados', (req, res) => {
-    console.log('Preflight request recebida para /resultados');
-    res.sendStatus(204); // Responder com status 204 (No Content) para requisições preflight
+    res.set({
+        'Access-Control-Allow-Origin': 'https://liandrolima.github.io',
+        'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
+        'Access-Control-Allow-Headers': 'Content-Type, Authorization, apikey'
+    });
+    res.sendStatus(204); // Enviar status 204 para confirmar o sucesso da requisição preflight
 });
 
 // Outras configurações do servidor
