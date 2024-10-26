@@ -3,13 +3,8 @@ const cors = require('cors');
 const { Pool } = require('pg');
 const app = express();
 
-// Configurar CORS
-app.use(cors({
-    origin: 'https://liandrolima.github.io',
-    methods: ['GET', 'POST', 'OPTIONS'],
-    allowedHeaders: ['Content-Type', 'Authorization', 'apikey'], // Adiciona 'apikey' aos cabeçalhos permitidos
-    credentials: true
-}));
+// Configurar CORS sem restrições temporariamente
+app.use(cors());  // Permite todas as origens, cabeçalhos e métodos
 
 app.use(express.json());
 
