@@ -199,3 +199,43 @@ function sendResultsToDatabase(nome, acertos, total) {
 }
 
 
+function finalizarQuiz() {
+    const nomeInput = document.getElementById("nameInput");
+    const acertos = 5; // Substitua isso pela lógica que você usa para calcular os acertos
+    const total = [1, 2, 3, 4, 5]; // Substitua isso pela lógica que você usa para calcular o total
+
+    if (nomeInput) {
+        const nome = nomeInput.value.trim(); // Remove espaços em branco
+
+        // Verifique se os dados estão corretos
+        const data = {
+            nome: nome,
+            acertos: acertos,
+            total: total
+        };
+
+        // Validação dos dados
+        if (!nome) {
+            console.error("O campo 'nome' não pode estar vazio.");
+            return;
+        }
+        
+        if (typeof acertos !== 'number') {
+            console.error("O valor de 'acertos' deve ser um número.");
+            return;
+        }
+
+        if (!Array.isArray(total)) {
+            console.error("O 'total' deve ser um array.");
+            return;
+        }
+
+        // Log dos dados antes de enviar
+        console.log('Dados para envio:', data);
+
+        // Enviar os dados para o banco de dados
+        sendResultsToDatabase(nome, acertos, total);
+    } else {
+        console.error("Elemento com ID 'nameInput' não encontrado.");
+    }
+}
