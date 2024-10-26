@@ -3,18 +3,17 @@ const cors = require('cors');
 const { Pool } = require('pg');
 const app = express();
 
-app.use(express.json());
+// Configuração de CORS
+app.use(cors({
+    origin: '*', // Permite todas as origens
+    methods: ['GET', 'POST', 'OPTIONS'], // Métodos permitidos
+    allowedHeaders: ['Content-Type', 'Authorization', 'apikey'], // Inclui apikey explicitamente
+    credentials: true
+}));
 
-// Configuração para desativar CORS
-app.use((req, res, next) => {
-    res.header("Access-Control-Allow-Origin", "*"); // Permitir todas as origens
-    res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
-    res.header("Access-Control-Allow-Headers", "Content-Type, Authorization, apikey");
-    if (req.method === "OPTIONS") {
-        return res.sendStatus(200);
-    }
-    next();
-});
+app.options('*', cors()); // Configuração para pré-requisições OPTIONS
+
+app.use(express.json());
 
 // Configurar pool de conexão com PostgreSQL
 const pool = new Pool({
