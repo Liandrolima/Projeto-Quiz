@@ -2,13 +2,18 @@ const express = require('express');
 const cors = require('cors');
 const app = express();
 
-app.use(cors({
+// Configurar CORS com allowedHeaders incluído explicitamente
+const corsOptions = {
     origin: 'https://liandrolima.github.io',
     methods: ['GET', 'POST', 'OPTIONS'],
-    allowedHeaders: ['Content-Type', 'Authorization', 'apikey'], // Inclui 'apikey' explicitamente
+    allowedHeaders: ['Content-Type', 'Authorization', 'apikey'],
     credentials: true
-}));
+};
 
+app.use(cors(corsOptions));
+app.options('*', cors(corsOptions)); // Lidar com as requisições preflight
+
+// Outras rotas e middlewares
 app.use(express.json());
 
 app.post('/resultados', (req, res) => {
