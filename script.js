@@ -186,3 +186,21 @@ function sendResultsToDatabase(nome, acertos, total) {
         console.error('Erro ao enviar dados:', error);
     });
 }
+
+// Função para finalizar o quiz e enviar os resultados
+function finalizarQuiz() {
+    const nomeDoUsuario = document.getElementById('nome').value; // Supondo que você tenha um campo de entrada para o nome do usuário
+    const totalPerguntas = 10; // Exemplo: total de perguntas no quiz
+    const acertos = calcularAcertos(); // Suponha que esta função calcule os acertos do usuário
+
+    // Envia os resultados para o banco de dados
+    sendResultsToDatabase(nomeDoUsuario, acertos, totalPerguntas);
+}
+
+// Suponha que essa função seja chamada quando o quiz termina
+function calcularAcertos() {
+    // Lógica para calcular os acertos do usuário
+    let acertos = 5; // Apenas um valor de exemplo
+    return acertos;
+}
+
