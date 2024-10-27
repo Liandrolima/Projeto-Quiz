@@ -165,13 +165,17 @@ selectButton();
 function sendResultsToDatabase(nome, acertos, total) {
     const url = 'https://quiz-backend-1-05r8.onrender.com/resultados';
     
+    // Verifica se os dados estão no formato esperado
+    if (typeof nome !== 'string' || typeof acertos !== 'number' || !Number.isInteger(total)) {
+        console.error('Dados inválidos para envio:', { nome, acertos, total });
+        return;
+    }
+
     const data = {
         nome: nome,
         acertos: acertos,
         total: total
     };
-
-    console.log("Enviando dados:", data); // Para depuração
 
     fetch(url, {
         method: 'POST',
@@ -181,8 +185,8 @@ function sendResultsToDatabase(nome, acertos, total) {
         body: JSON.stringify(data),
     })
     .then(response => {
-        if (!response.ok) { // Verifica se a resposta não é ok
-            return response.json().then(err => { throw new Error(err.message) });
+        if (!response.ok) {
+            throw new Error(`Erro na resposta do servidor: ${response.status}`);
         }
         return response.json();
     })
@@ -194,52 +198,4 @@ function sendResultsToDatabase(nome, acertos, total) {
     });
 }
 
-// Chamada de exemplo
-const nome = "nome"; // Substitua pelo valor real
-const acertos = 5; // Substitua pelo valor real
-const total = [1, 2, 3, 4, 5]; // Substitua pelo valor real
 
-sendResultsToDatabase(nome, acertos, total);
-
-
-
-function finalizarQuiz() {
-    const nomeInput = document.getElementById("nameInput");
-    const acertos = 5; // Substitua isso pela lógica que você usa para calcular os acertos
-    const total = [1, 2, 3, 4, 5]; // Substitua isso pela lógica que você usa para calcular o total
-
-    if (nomeInput) {
-        const nome = nomeInput.value.trim(); // Remove espaços em branco
-
-        // Verifique se os dados estão corretos
-        const data = {
-            nome: nome,
-            acertos: acertos,
-            total: total
-        };
-
-        // Validação dos dados
-        if (!nome) {
-            console.error("O campo 'nome' não pode estar vazio.");
-            return;
-        }
-        
-        if (typeof acertos !== 'number') {
-            console.error("O valor de 'acertos' deve ser um número.");
-            return;
-        }
-
-        if (!Array.isArray(total)) {
-            console.error("O 'total' deve ser um array.");
-            return;
-        }
-
-        // Log dos dados antes de enviar
-        console.log('Dados para envio:', data);
-
-        // Enviar os dados para o banco de dados
-        sendResultsToDatabase(nome, acertos, total);
-    } else {
-        console.error("Elemento com ID 'nameInput' não encontrado.");
-    }
-}
