@@ -195,7 +195,7 @@ function sendResultsToDatabase(nome, acertos, total) {
 }
 
 // Chamada de exemplo
-const nome = "Nome do Usuário"; // Substitua pelo valor real
+const nome = "nome"; // Substitua pelo valor real
 const acertos = 5; // Substitua pelo valor real
 const total = [1, 2, 3, 4, 5]; // Substitua pelo valor real
 
