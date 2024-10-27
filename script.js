@@ -167,7 +167,7 @@ function sendResultsToDatabase(nome, acertos, total) {
     
     // Verifica se os dados estão no formato esperado
     if (typeof nome !== 'string' || typeof acertos !== 'number' || !Number.isInteger(total)) {
-        console.error('Dados inválidos para envio:');
+        console.log('Dados inválidos para envio:', { nome, acertos, total });
         return;
     }
 
