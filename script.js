@@ -177,13 +177,25 @@ function submitName() {
     // Mostrar as perguntas
     document.getElementById("questions").style.display = "block";
     
-    // Aqui você pode chamar a função para iniciar o quiz
-    startQuiz(); // Você precisa implementar essa função para carregar a primeira pergunta
+    // Iniciar o quiz
+    startQuiz();
 }
 
+
 function startQuiz() {
-    // Lógica para iniciar o quiz, carregar a primeira pergunta, etc.
+    // Aqui você deve adicionar a lógica para carregar e exibir a primeira pergunta
+    // Exemplo simples:
+    const questionsContainer = document.getElementById("questions");
+    const questionElement = document.getElementById("question");
+    
+    // Defina a primeira pergunta (substitua pela sua lógica real)
+    const firstQuestion = "Qual é a capital do Brasil?";
+    questionElement.innerText = firstQuestion;
+    
+    // Mude a exibição para mostrar as perguntas
+    questionsContainer.style.display = "block";
 }
+
 
 function finalizarQuiz() {
     const nomeInput = document.getElementById("nameInput");
@@ -225,6 +237,7 @@ function finalizarQuiz() {
         console.error("Elemento com ID 'nameInput' não encontrado.");
     }
 }
+
 
 // Função para enviar os resultados ao banco de dados
 function sendResultsToDatabase(nome, acertos, total) {
