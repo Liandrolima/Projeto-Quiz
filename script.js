@@ -162,48 +162,54 @@ roletaButton.addEventListener('click', () => {
 
 selectButton();
 
-function submitName() {
-    const nomeInput = document.getElementById("nameInput");
-    const nome = nomeInput.value.trim();
-
-    if (!nome) {
-        alert("Por favor, digite seu nome.");
-        return;
-    }
-
-    // Exibir uma saudação
-    document.getElementById("greeting").innerText = `Bem-vindo, ${nome}!`;
+function sendResultsToDatabase(nome, acertos, total) {
+    const url = 'https://quiz-backend-1-05r8.onrender.com/resultados';
     
-    // Mostrar as perguntas
-    document.getElementById("questions").style.display = "block";
-    
-    // Iniciar o quiz
-    startQuiz();
+    const data = {
+        nome: nome,
+        acertos: acertos,
+        total: total
+    };
+
+    console.log("Enviando dados:", data); // Para depuração
+
+    fetch(url, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+    })
+    .then(response => {
+        if (!response.ok) { // Verifica se a resposta não é ok
+            return response.json().then(err => { throw new Error(err.message) });
+        }
+        return response.json();
+    })
+    .then(result => {
+        console.log('Dados enviados com sucesso:', result);
+    })
+    .catch(error => {
+        console.error('Erro ao enviar dados:', error);
+    });
 }
 
+// Chamada de exemplo
+const nome = "Nome do Usuário"; // Substitua pelo valor real
+const acertos = 5; // Substitua pelo valor real
+const total = [1, 2, 3, 4, 5]; // Substitua pelo valor real
 
-function startQuiz() {
-    // Aqui você deve adicionar a lógica para carregar e exibir a primeira pergunta
-    // Exemplo simples:
-    const questionsContainer = document.getElementById("questions");
-    const questionElement = document.getElementById("question");
-    
-    // Defina a primeira pergunta (substitua pela sua lógica real)
-    const firstQuestion = "Qual é a capital do Brasil?";
-    questionElement.innerText = firstQuestion;
-    
-    // Mude a exibição para mostrar as perguntas
-    questionsContainer.style.display = "block";
-}
+sendResultsToDatabase(nome, acertos, total);
+
 
 
 function finalizarQuiz() {
     const nomeInput = document.getElementById("nameInput");
-    const acertos = 5; // Exemplo: substitua pela lógica real
-    const total = [1, 2, 3, 4, 5]; // Exemplo: substitua pela lógica real
+    const acertos = 5; // Substitua isso pela lógica que você usa para calcular os acertos
+    const total = [1, 2, 3, 4, 5]; // Substitua isso pela lógica que você usa para calcular o total
 
     if (nomeInput) {
-        const nome = nomeInput.value.trim();
+        const nome = nomeInput.value.trim(); // Remove espaços em branco
 
         // Verifique se os dados estão corretos
         const data = {
@@ -237,43 +243,3 @@ function finalizarQuiz() {
         console.error("Elemento com ID 'nameInput' não encontrado.");
     }
 }
-
-
-// Função para enviar os resultados ao banco de dados
-function sendResultsToDatabase(nome, acertos, total) {
-    const url = 'https://quiz-backend-1-05r8.onrender.com/resultados';
-    
-    const data = {
-        nome: nome,
-        acertos: acertos,
-        total: total
-    };
-
-    console.log("Enviando dados:", data);
-
-    fetch(url, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(data),
-    })
-    .then(response => {
-        if (!response.ok) { 
-            return response.json().then(err => { throw new Error(err.message) });
-        }
-        return response.json();
-    })
-    .then(result => {
-        console.log('Dados enviados com sucesso:', result);
-    })
-    .catch(error => {
-        console.error('Erro ao enviar dados:', error);
-    });
-}
-
-const nome = "Nome do Usuário"; // Substitua pelo valor real
-const acertos = 5; // Substitua pelo valor real
-const total = [1, 2, 3, 4, 5]; // Substitua pelo valor real
-
-sendResultsToDatabase(nome, acertos, total);
