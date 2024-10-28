@@ -39,19 +39,25 @@ app.get('/resultados', (req, res) => {
 // Endpoint para salvar resultados
 app.post('/resultados', async (req, res) => {
     const { nome, acertos, total } = req.body;
+    console.log('Dados recebidos:', req.body);
 
     if (!nome || typeof acertos !== 'number' || !Array.isArray(total)) {
         return res.status(400).json({ message: 'Dados inválidos' });
     }
 
     try {
-        await pool.query('INSERT INTO resultados (nome, acertos, total) VALUES ($1, $2, $3)', [nome, acertos, JSON.stringify(total)]);
+        const queryText = `INSERT INTO resultados (nome, acertos, total) 
+                           VALUES ('${nome}', ${acertos}, '${JSON.stringify(total)}')`;
+        const result = await pool.query(queryText);
+        console.log('Dados inseridos:', result);
         res.status(200).json({ message: 'Dados salvos com sucesso no banco de dados' });
     } catch (error) {
         console.error('Erro ao salvar no banco de dados:', error);
-        res.status(200).json({ message: 'Erro ao salvar dados' });
+        res.status(500).json({ message: 'Erro ao salvar dados' });
     }
 });
+
+
 
 // Configurar a porta
 const port = process.env.PORT || 3000;
