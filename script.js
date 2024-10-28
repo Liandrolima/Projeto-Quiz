@@ -1,4 +1,4 @@
-const questions = [
+const questions = [ 
     "São processos administrativos. Exceto:",
     "Função administrativa que consiste em verificar se as coisas estão sendo feitas de acordo com o plano adotado, as instruções transmitidas e os princípios estabelecidos.",
     "As funções do administrador e as funções básicas de uma empresa foram apresentadas no",
@@ -69,9 +69,9 @@ function getRandomQuestion() {
     optionsContainer.forEach((element, index) => {
         element.textContent = options[nowQuestion][index];
         element.setAttribute('data-value', index);
-        element.disabled = false;  // Certifica-se de que os botões estão habilitados
-        element.style.pointerEvents = 'auto';  // Reativa os botões
-        element.style.opacity = '1';  // Restabelece a aparência padrão
+        element.disabled = false;
+        element.style.pointerEvents = 'auto';
+        element.style.opacity = '1';
     });
 }
 
@@ -90,8 +90,8 @@ function selectButton() {
 function disableButtons() {
     const alternativas = document.querySelectorAll('.alternative');
     alternativas.forEach(button => {
-        button.style.pointerEvents = 'none';  // Desabilita o clique
-        button.style.opacity = '0.6';  // Muda a aparência para indicar desativado
+        button.style.pointerEvents = 'none';
+        button.style.opacity = '0.6';
     });
 }
 
@@ -115,7 +115,6 @@ function showFinalScore() {
     const finalScore = score;
     const name = document.querySelector('#nameInput').value;
 
-    // Enviar os dados para o servidor aqui
     sendResultsToDatabase(name, finalScore, questions);
 
     document.body.innerHTML = "";  
@@ -165,9 +164,8 @@ selectButton();
 function sendResultsToDatabase(nome, acertos, total) {
     const url = 'https://quiz-backend-1-05r8.onrender.com/resultados';
     
-    // Verifica se os dados estão no formato esperado
-    if (typeof nome !== 'string' || typeof acertos !== 'number' || !Array.isArray(total)) {
-        console.log('Dados inválidos para envio:', { nome, acertos, total });
+    if (typeof nome !== 'string' || nome.trim() === '' || typeof acertos !== 'number' || !Array.isArray(total)) {
+        console.error('Dados inválidos para envio:', { nome, acertos, total });
         return;
     }
 
@@ -197,5 +195,3 @@ function sendResultsToDatabase(nome, acertos, total) {
         console.error('Erro ao enviar dados:', error);
     });
 }
-
-
