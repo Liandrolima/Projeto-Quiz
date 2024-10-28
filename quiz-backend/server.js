@@ -40,6 +40,7 @@ app.get('/resultados', (req, res) => {
 app.post('/resultados', async (req, res) => {
     const { nome, acertos, total } = req.body;
     console.log('Dados recebidos:', req.body);
+    console.log('Dados recebidos:', { nome, acertos, total });
 
     if (!nome || typeof acertos !== 'number' || !Array.isArray(total)) {
         return res.status(400).json({ message: 'Dados inválidos' });
@@ -56,7 +57,6 @@ app.post('/resultados', async (req, res) => {
         res.status(500).json({ message: 'Erro ao salvar dados' });
     }
 });
-
 
 
 // Configurar a porta
