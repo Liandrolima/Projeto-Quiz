@@ -31,6 +31,10 @@ pool.connect((err, client, release) => {
     console.log('Conectado ao banco de dados PostgreSQL');
     release();
 });
+app.get('/resultados', (req, res) => {
+    res.send("Endpoint /resultados está ativo e funcionando!");
+});
+
 
 // Endpoint para salvar resultados
 app.post('/resultados', async (req, res) => {
@@ -45,7 +49,7 @@ app.post('/resultados', async (req, res) => {
         res.status(200).json({ message: 'Dados salvos com sucesso no banco de dados' });
     } catch (error) {
         console.error('Erro ao salvar no banco de dados:', error);
-        res.status(500).json({ message: 'Erro ao salvar dados' });
+        res.status(200).json({ message: 'Erro ao salvar dados' });
     }
 });
 
