@@ -166,7 +166,7 @@ function sendResultsToDatabase(nome, acertos, total) {
     const url = 'https://quiz-backend-1-05r8.onrender.com/resultados';
     
     // Verifica se os dados estão no formato esperado
-    if (typeof nome !== 'string' || typeof acertos !== 'number' || !Number.isInteger(total)) {
+    if (typeof nome !== 'string' || typeof acertos !== 'number' || !Array.isArray(total)) {
         console.log('Dados inválidos para envio:', { nome, acertos, total });
         return;
     }
