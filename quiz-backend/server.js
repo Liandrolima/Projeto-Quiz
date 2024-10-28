@@ -24,6 +24,14 @@ const pool = new Pool({
     database: 'postgres',
 });
 
+pool.connect((err, client, release) => {
+    if (err) {
+        return console.error('Erro ao conectar ao banco de dados:', err.stack);
+    }
+    console.log('Conectado ao banco de dados PostgreSQL');
+    release();
+});
+
 // Endpoint para salvar resultados
 app.post('/resultados', async (req, res) => {
     const { nome, acertos, total } = req.body;
