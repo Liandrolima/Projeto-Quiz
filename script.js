@@ -195,7 +195,6 @@ function sendResultsToDatabase(nome, acertos, total) {
         return response.json();
     })
     .then(data => console.log(data))
-    .catch(error => console.error('Erro ao enviar dados:', error));
-    
+      
     
 }
