@@ -31,32 +31,21 @@ pool.connect((err, client, release) => {
     console.log('Conectado ao banco de dados PostgreSQL');
     release();
 });
-app.get('/resultados', async (req, res) => {
-    try {
-        const result = await pool.query('SELECT * FROM resultados');
-        res.status(200).json(result.rows);
-    } catch (error) {
-        console.error('Erro ao recuperar resultados:', error);
-        res.status(500).json({ message: 'Erro ao recuperar resultados' });
-    }
+app.get('/resultados', (req, res) => {
+    res.send("Endpoint /resultados está ativo e funcionando!");
 });
-
 
 // Endpoint para salvar resultados
 app.post('/resultados', async (req, res) => {
-    const { nome, acertos, total } = req.body;
     console.log('Dados recebidos:', req.body);
-    console.log('Dados recebidos:', { nome, acertos, total });
+    const { nome, acertos, total } = req.body;
 
     if (!nome || typeof acertos !== 'number' || !Array.isArray(total)) {
         return res.status(400).json({ message: 'Dados inválidos' });
     }
 
     try {
-        const queryText = `INSERT INTO resultados (nome, acertos, total) 
-                           VALUES ('${nome}', ${acertos}, '${JSON.stringify(total)}')`;
-        const result = await pool.query(queryText);
-        console.log('Dados inseridos:', result);
+        await pool.query('INSERT INTO resultados (nome, acertos, total) VALUES ($1, $2, $3)', [nome, acertos, JSON.stringify(total)]);
         res.status(200).json({ message: 'Dados salvos com sucesso no banco de dados' });
     } catch (error) {
         console.error('Erro ao salvar no banco de dados:', error);

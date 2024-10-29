@@ -183,11 +183,13 @@ function sendResultsToDatabase(nome, acertos, total) {
         body: JSON.stringify(data),
     })
     .then(response => {
+        console.log('Resposta do servidor:', response);
         if (!response.ok) {
             throw new Error('Erro na resposta do servidor: ' + response.status);
         }
         return response.json();
     })
+    
     
     .then(result => {
         console.log('Dados enviados com sucesso:', result);
