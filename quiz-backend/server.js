@@ -31,8 +31,14 @@ pool.connect((err, client, release) => {
     console.log('Conectado ao banco de dados PostgreSQL');
     release();
 });
-app.get('/resultados', (req, res) => {
-    res.send("Endpoint /resultados está ativo e funcionando!");
+app.get('/resultados', async (req, res) => {
+    try {
+        const result = await pool.query('SELECT * FROM resultados');
+        res.status(200).json(result.rows);
+    } catch (error) {
+        console.error('Erro ao recuperar resultados:', error);
+        res.status(500).json({ message: 'Erro ao recuperar resultados' });
+    }
 });
 
 
