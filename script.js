@@ -161,58 +161,43 @@ roletaButton.addEventListener('click', () => {
 
 selectButton();
 
-function sendResultsToDatabase(nome, acertos, total) {
+function sendResultsToDatabase(name, finalScore, questions) {
+    const totalQuestions = questions.length;
+    const finalScore = score;
+    const name = document.querySelector('#nameInput').value;
     const url = 'https://quiz-backend-1-05r8.onrender.com/resultados';
     
-    // Verifica se os dados estão corretos
-    if (typeof nome !== 'string' || nome.trim() === '') {
-        console.error('O campo nome não pode estar vazio.');
-        return;
-    }
-
-    if (typeof acertos !== 'number') {
-        console.error('O campo acertos deve ser um número.');
-        return;
-    }
-
-    if (!Array.isArray(total)) {
-        console.error('O campo total deve ser um array.');
+    if (typeof name !== 'string' || name.trim() === '' || typeof finalScore !== 'number' || !Array.isArray(totalQuestions)) {
+        console.error('Dados inválidos para envio:', { name, finalScore, questions });
         return;
     }
 
     const data = {
-        nome: nome,
-        acertos: acertos,
-        total: total
+        name: nome,
+        finalScore: acertos,
+        totalQuestions: total
     };
 
-    // Enviar os dados para o servidor
     fetch(url, {
         method: 'POST',
         headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
         },
-        body: JSON.stringify(data)
+        body: JSON.stringify(data),
     })
     .then(response => {
-        console.log('Resposta do servidor:', response);
-        if (!response.ok) {
-            throw new Error('Erro na resposta do servidor: ' + response.status);
-        }
-        return response.json();
-    })
-    .then(data => {
-        console.log('Dados retornados do servidor:', data);
+    console.log('Resposta do servidor:', response);
+    if (!response.ok) {
+        throw new Error('Erro na resposta do servidor: ' + response.status);
+    }
+    return response.json();
+})
+
+    
+    .then(result => {
+        console.log('Dados enviados com sucesso:', result);
     })
     .catch(error => {
         console.error('Erro ao enviar dados:', error);
     });
 }
-
-// Chame a função com os dados desejados
-const nome = 'Tais';
-const acertos = 5;
-const total = [1, 2, 3];
-
-sendResultsToDatabase(nome, acertos, total);
-
