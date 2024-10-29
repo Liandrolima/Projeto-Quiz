@@ -4,23 +4,7 @@ const cors = require("cors");
 const { Pool } = require("pg");
 
 app.use(express.json());
-// Configuração de CORS
-// const allowedOrigins = ['https://liandrolima.github.io', 'http://127.0.0.1:5500'];
-// app.use(cors({
-//     origin: function (origin, callback) {
-//         // Permitir requisições sem origem (ex. Thunder Client)
-//         if (!origin) return callback(null, true);
-//         if (allowedOrigins.includes(origin)) {
-//             return callback(null, true);
-//         } else {
-//             return callback(new Error('Not allowed by CORS'));
-//         }
-//     },
-//     methods: ['GET', 'POST'],
-//     allowedHeaders: ['Content-Type', 'Authorization']
-// }));
 
-// app.options('*', cors()); // Habilitar suporte para requisições OPTIONS
 
 app.use(cors());
 
