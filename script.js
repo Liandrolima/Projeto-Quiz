@@ -161,21 +161,19 @@ roletaButton.addEventListener('click', () => {
 
 selectButton();
 
-function sendResultsToDatabase(name, finalScore, questions) {
-    const totalQuestions = questions.length;
-    const finalScore = score;
-    const name = document.querySelector('#nameInput').value;
+function sendResultsToDatabase(nome, acertos, total) {
     const url = 'https://quiz-backend-1-05r8.onrender.com/resultados';
-    
-    if (typeof name !== 'string' || name.trim() === '' || typeof finalScore !== 'number' || !Array.isArray(totalQuestions)) {
-        console.error('Dados inválidos para envio:', { name, finalScore, questions });
+
+    // Verifica se os dados estão no formato esperado
+    if (typeof nome !== 'string' || typeof acertos !== 'number' || !Array.isArray(total)) {
+        console.log('Dados inválidos para envio:', { nome, acertos, total });
         return;
     }
 
     const data = {
-        name: nome,
-        finalScore: acertos,
-        totalQuestions: total
+        nome: nome,
+        acertos: acertos,
+        total: total
     };
 
     fetch(url, {
@@ -186,14 +184,11 @@ function sendResultsToDatabase(name, finalScore, questions) {
         body: JSON.stringify(data),
     })
     .then(response => {
-    console.log('Resposta do servidor:', response);
-    if (!response.ok) {
-        throw new Error('Erro na resposta do servidor: ' + response.status);
-    }
-    return response.json();
-})
-
-    
+        if (!response.ok) {
+            throw new Error(`Erro na resposta do servidor: ${response.status}`);
+        }
+        return response.json();
+    })
     .then(result => {
         console.log('Dados enviados com sucesso:', result);
     })

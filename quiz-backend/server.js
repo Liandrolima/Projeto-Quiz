@@ -35,14 +35,12 @@ app.get('/resultados', (req, res) => {
     res.send("Endpoint /resultados está ativo e funcionando!");
 });
 
+
 // Endpoint para salvar resultados
 app.post('/resultados', async (req, res) => {
-    console.log('Dados recebidos:', req.body);
     const { nome, acertos, total } = req.body;
 
-     // Adicione esta linha para ver os dados recebidos
-
-     if (!nome || typeof acertos !== 'number' || !Array.isArray(total)) {
+    if (!nome || typeof acertos !== 'number' || !Array.isArray(total)) {
         return res.status(400).json({ message: 'Dados inválidos' });
     }
 
@@ -51,11 +49,9 @@ app.post('/resultados', async (req, res) => {
         res.status(200).json({ message: 'Dados salvos com sucesso no banco de dados' });
     } catch (error) {
         console.error('Erro ao salvar no banco de dados:', error);
-        res.status(500).json({ message: 'Erro ao salvar dados' });
+        res.status(200).json({ message: 'Erro ao salvar dados' });
     }
 });
-
-
 
 // Configurar a porta
 const port = process.env.PORT || 3000;
