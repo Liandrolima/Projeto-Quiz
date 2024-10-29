@@ -162,9 +162,6 @@ roletaButton.addEventListener('click', () => {
 selectButton();
 
 function sendResultsToDatabase(nome, acertos, total) {
-    const totalQuestions = questions.length;
-    const finalScore = score;
-    const name = document.querySelector('#nameInput').value;
     const url = 'https://quiz-backend-1-05r8.onrender.com/resultados';
 
     // Verifica se os dados estão no formato esperado
