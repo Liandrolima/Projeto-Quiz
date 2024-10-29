@@ -170,6 +170,8 @@ function sendResultsToDatabase(nome, acertos, total) {
         return;
     }
 
+    console.log('Dados a serem enviados:', { nome, acertos, total });
+
     const data = {
         nome: nome,
         acertos: acertos,

@@ -38,7 +38,13 @@ app.get('/resultados', (req, res) => {
 
 // Endpoint para salvar resultados
 app.post('/resultados', async (req, res) => {
+    console.log(req.body);
     const { nome, acertos, total } = req.body;
+
+    if (!nome || typeof nome !== 'string' || nome.trim() === '') {
+        console.error('Nome vazio ou inválido:', nome);
+        return res.status(400).json({ message: 'Nome não pode estar vazio' });
+    }
 
     if (!nome || typeof acertos !== 'number' || !Array.isArray(total)) {
         return res.status(400).json({ message: 'Dados inválidos' });
