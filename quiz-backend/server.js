@@ -46,18 +46,19 @@ app.get('/resultados', (req, res) => {
 
 
 // Endpoint para salvar resultados
-app.post('/resultados', (req, res) => {
-    const { nome, acertos, total } = req.body;
-
-    // Verifique se os dados necessários estão presentes
-    if (!nome || typeof acertos === 'undefined' || typeof total === 'undefined') {
-        return res.status(400).json({ error: 'Dados inválidos fornecidos' });
+app.post('/resultados', async (req, res) => {
+    try {
+        const { nome, acertos, perguntas } = req.body;
+        // Código para inserir dados no banco de dados, por exemplo:
+        await pool.query(
+            'INSERT INTO resultados (nome, acertos, perguntas) VALUES ($1, $2, $3)',
+            [nome, acertos, perguntas]
+        );
+        res.status(200).json({ message: "Resultados armazenados com sucesso!" });
+    } catch (error) {
+        console.error("Erro ao salvar dados:", error);
+        res.status(500).json({ message: "Erro ao salvar dados." });
     }
-
-    // Aqui você pode armazenar os dados no banco de dados, etc.
-    console.log('Dados recebidos:', { nome, acertos, total });
-
-    res.status(200).json({ message: 'Resultados armazenados com sucesso!' });
 });
 
 
