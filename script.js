@@ -186,15 +186,9 @@ function sendResultsToDatabase(nome, acertos, total) {
             total: [1, 2, 3, 4] // Exemplo de array de total
         })
     })
-    .then(response => {
-        if (!response.ok) {
-            return response.json().then(err => {
-                throw new Error(`Erro: ${err.message}`);
-            });
-        }
-        return response.json();
-    })
+    
     .then(data => console.log(data))
       
+    
     
 }
