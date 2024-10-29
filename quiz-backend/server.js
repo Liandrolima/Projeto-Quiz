@@ -37,10 +37,12 @@ app.get('/resultados', (req, res) => {
 
 // Endpoint para salvar resultados
 app.post('/resultados', async (req, res) => {
-    console.log('Dados recebidos:', req.body);
     const { nome, acertos, total } = req.body;
 
+    console.log('Dados recebidos:', req.body); // Adicione esta linha para ver os dados recebidos
+
     if (!nome || typeof acertos !== 'number' || !Array.isArray(total)) {
+        console.log('Erro de validação:', { nome, acertos, total }); // Adicione esta linha para ver quais dados estão falhando
         return res.status(400).json({ message: 'Dados inválidos' });
     }
 
@@ -52,6 +54,7 @@ app.post('/resultados', async (req, res) => {
         res.status(500).json({ message: 'Erro ao salvar dados' });
     }
 });
+
 
 
 // Configurar a porta
