@@ -175,29 +175,50 @@ function sendResultsToDatabase(nome, acertos, total) {
         total: total
     };
 
-    fetch('https://quiz-backend-1-05r8.onrender.com/resultados', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({
-            nome: 'mario',    // Altere para um nome real
-            acertos: 5,                 // Altere para um número real
-            total: [1, 2, 3]            // Altere para um array real
-        })
+const nome = 'Nome do Usuário';
+const acertos = 5;
+const total = [1, 2, 3];
+
+if (!nome.trim()) {
+    console.error('O campo nome não pode estar vazio.');
+    return;
+}
+
+if (typeof acertos !== 'number') {
+    console.error('O campo acertos deve ser um número.');
+    return;
+}
+
+if (!Array.isArray(total)) {
+    console.error('O campo total deve ser um array.');
+    return;
+}
+
+// Enviar os dados para o servidor
+fetch('https://quiz-backend-1-05r8.onrender.com/resultados', {
+    method: 'POST',
+    headers: {
+        'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+        nome,
+        acertos,
+        total
     })
-    .then(response => {
-        console.log('Resposta do servidor:', response);
-        if (!response.ok) {
-            throw new Error('Erro na resposta do servidor: ' + response.status);
-        }
-        return response.json();
-    })
-    .then(data => {
-        console.log('Dados recebidos do servidor:', data);
-    })
-    .catch(error => {
-        console.error('Erro ao enviar dados:', error);
-    });
+})
+.then(response => {
+    console.log('Resposta do servidor:', response);
+    if (!response.ok) {
+        throw new Error('Erro na resposta do servidor: ' + response.status);
+    }
+    return response.json();
+})
+.then(data => {
+    console.log('Dados retornados do servidor:', data);
+})
+.catch(error => {
+    console.error('Erro ao enviar dados:', error);
+});
+
     
 }
