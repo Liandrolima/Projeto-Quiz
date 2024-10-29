@@ -115,7 +115,7 @@ function showFinalScore() {
     const finalScore = score;
     const name = document.querySelector('#nameInput').value;
 
-    sendResultsToDatabase(name, finalScore, questions);
+    sendResultsToDatabase(name, finalScore, totalQuestions);
 
     document.body.innerHTML = "";  
 
@@ -165,7 +165,7 @@ function sendResultsToDatabase(nome, acertos, total) {
     const url = 'https://quiz-backend-1-05r8.onrender.com/resultados';
 
     // Verifica se os dados estão no formato esperado
-    if (typeof nome !== 'string' || typeof acertos !== 'number' || !Array.isArray(total)) {
+    if (typeof nome !== 'string' || typeof acertos !== 'number' || typeof total !== 'number') {
         console.log('Dados inválidos para envio:', { nome, acertos, total });
         return;
     }
