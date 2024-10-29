@@ -161,21 +161,24 @@ roletaButton.addEventListener('click', () => {
 
 selectButton();
 
-function sendResultsToDatabase(nome, acertos, total) {
+function sendResultsToDatabase(name, finalScore, questions) {
+    const totalQuestions = questions.length;
+    const finalScore = score;
+    const name = document.querySelector('#nameInput').value;
     const url = 'https://quiz-backend-1-05r8.onrender.com/resultados';
 
     // Verifica se os dados estão no formato esperado
-    if (typeof nome !== 'string' || typeof acertos !== 'number' || !Array.isArray(total)) {
+    if (typeof name !== 'string' || typeof finalScore !== 'number' || !Array.isArray(totalQuestions)) {
         console.log('Dados inválidos para envio:', { nome, acertos, total });
         return;
     }
 
-    console.log('Dados a serem enviados:', { nome, acertos, total });
+    console.log('Dados a serem enviados:', { name, finalScore, questions });
 
     const data = {
-        nome: nome,
-        acertos: acertos,
-        total: total
+        name: nome,
+        finalScore: acertos,
+        totalQuestions: total
     };
 
     fetch(url, {
