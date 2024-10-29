@@ -175,20 +175,24 @@ function sendResultsToDatabase(nome, acertos, total) {
         total: total
     };
 
-    fetch('https://quiz-backend-1-05r8.onrender.com/resultados', {
+    fetch(url, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
         },
-        body: JSON.stringify({
-            nome: 'Teste de Usuário',
-            acertos: 3,
-            total: [1, 2, 3, 4] // Exemplo de array de total
-        })
+        body: JSON.stringify(data),
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Erro na resposta do servidor: ' + response.status);
+        }
+        return response.json();
     })
     
-    .then(data => console.log(data))
-      
-    
-    
+    .then(result => {
+        console.log('Dados enviados com sucesso:', result);
+    })
+    .catch(error => {
+        console.error('Erro ao enviar dados:', error);
+    });
 }
