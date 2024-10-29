@@ -1,19 +1,28 @@
 const express = require('express');
+const app = express();
 const cors = require('cors');
 const { Pool } = require('pg');
-const app = express();
 
+app.use(express.json());
 // Configuração de CORS
+const allowedOrigins = ['https://liandrolima.github.io', 'http://127.0.0.1:5500'];
 app.use(cors({
-    origin: 'https://liandrolima.github.io', // Permitir apenas o domínio específico do frontend
-    methods: ['GET', 'POST', 'OPTIONS'], 
-    allowedHeaders: ['Content-Type', 'Authorization', 'apikey'], 
-    credentials: true
+    origin: function (origin, callback) {
+        // Permitir requisições sem origem (ex. Thunder Client)
+        if (!origin) return callback(null, true);
+        if (allowedOrigins.includes(origin)) {
+            return callback(null, true);
+        } else {
+            return callback(new Error('Not allowed by CORS'));
+        }
+    },
+    methods: ['GET', 'POST'],
+    allowedHeaders: ['Content-Type', 'Authorization']
 }));
 
 app.options('*', cors()); // Habilitar suporte para requisições OPTIONS
 
-app.use(express.json());
+
 
 // Configurar pool de conexão com PostgreSQL
 const pool = new Pool({
@@ -37,27 +46,20 @@ app.get('/resultados', (req, res) => {
 
 
 // Endpoint para salvar resultados
-app.post('/resultados', async (req, res) => {
-    console.log(req.body);
+app.post('/resultados', (req, res) => {
     const { nome, acertos, total } = req.body;
 
-    if (!nome || typeof nome !== 'string' || nome.trim() === '') {
-        console.error('Nome vazio ou inválido:', nome);
-        return res.status(400).json({ message: 'Nome não pode estar vazio' });
+    // Verifique se os dados necessários estão presentes
+    if (!nome || typeof acertos === 'undefined' || typeof total === 'undefined') {
+        return res.status(400).json({ error: 'Dados inválidos fornecidos' });
     }
 
-    if (!nome || typeof acertos !== 'number' || !Array.isArray(total)) {
-        return res.status(400).json({ message: 'Dados inválidos' });
-    }
+    // Aqui você pode armazenar os dados no banco de dados, etc.
+    console.log('Dados recebidos:', { nome, acertos, total });
 
-    try {
-        await pool.query('INSERT INTO resultados (nome, acertos, total) VALUES ($1, $2, $3)', [nome, acertos, JSON.stringify(total)]);
-        res.status(200).json({ message: 'Dados salvos com sucesso no banco de dados' });
-    } catch (error) {
-        console.error('Erro ao salvar no banco de dados:', error);
-        res.status(200).json({ message: 'Erro ao salvar dados' });
-    }
+    res.status(200).json({ message: 'Resultados armazenados com sucesso!' });
 });
+
 
 // Configurar a porta
 const port = process.env.PORT || 3000;
