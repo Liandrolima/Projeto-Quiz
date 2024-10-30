@@ -7,6 +7,8 @@ body {
     
 }
 
+
+
 header {
     color: white;
     text-align: center;
@@ -22,6 +24,7 @@ section {
     width: 400px;
     margin: auto;
     box-shadow: 3px 3px 10px rgba(0, 0, 0, 0.363);
+    opacity: 0.;
 }
 
  .input-container {
@@ -47,7 +50,28 @@ section {
             border-radius: 5px;
             font-size: 16px;
         }
+
+        .imagem {
+           
+            background-color: #FFFFFF;
+            background-image: url('./imagem/imagemparquedococo.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;            
+            width: 100vw;
+            min-height: 100vh;            /* Altura mínima da viewport */
+            height: auto; 
+            position: relative;          
+            overflow: hidden;  
+            animation: aparecerLentamente 5s ease-in-out forwards;
+        }
+
+        @keyframes aparecerLentamente {
+            0% { opacity: 0; }   /* Início totalmente transparente */
+            100% { opacity: 1; } /* Totalmente visível ao final */
+        } 
         
+            
         button {
             padding: 10px 20px;
             background-color: #4CAF50;
@@ -102,3 +126,4 @@ footer {
     font-style: italic;
     
 }
+
