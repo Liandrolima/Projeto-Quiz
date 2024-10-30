@@ -3,17 +3,21 @@
 body {
     background: rgb(70, 142, 236);
     font: normal 15pt Arial;
+    display: flexbox;
+    
 }
 
 header {
     color: white;
     text-align: center;
+    
 
 }
 
 section {
     background: white;
     border-radius: 10px;
+    display: flexbox;
     padding: 15px;
     width: 400px;
     margin: auto;
@@ -56,6 +60,11 @@ section {
         
         button:hover {
             background-color: #45a049;
+        }
+
+        .alternative {
+            display: flexbox;            
+            margin-top: 10px;
         }
 
         #greeting {
