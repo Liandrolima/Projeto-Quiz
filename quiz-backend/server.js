@@ -3,6 +3,10 @@ const express = require("express");
 const app = express();
 const cors = require("cors");
 const { Pool } = require("pg");
+const dns = require("dns");
+
+// Forçar uso de IPv4 antes de IPv6
+dns.setDefaultResultOrder("ipv4first");
 
 app.use(express.json());
 
