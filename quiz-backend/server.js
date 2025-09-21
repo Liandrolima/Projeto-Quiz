@@ -10,13 +10,12 @@ app.use(cors());
 
 // Configurar pool de conexão com PostgreSQL
 const pool = new Pool({
-  host: "db.luoaogezcmsvyycvqqcm.supabase.co",
-  port: 5432,
-  user: "postgres",
-  password: "ehGhCTaStZkfiBgt",
-  database: "postgres",
-  ssl: { rejectUnauthorized: false }, // importante para Supabase
+  connectionString: process.env.DATABASE_URL,
+  ssl: {
+    rejectUnauthorized: false, // aceita o certificado do Supabase
+  },
 });
+
 
 pool.connect((err, client, release) => {
   if (err) {
